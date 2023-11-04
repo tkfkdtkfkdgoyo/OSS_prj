@@ -24,7 +24,7 @@ do
 
 	case $choice in 
 	1) 
-    	read -p "Please enter the 'movie id' (1~1682):" movieId
+    read -p "Please enter the 'movie id' (1~1682):" movieId
 	awk -v movieId="$movieId" -F '|' '$1 == movieId {print}' u.item
 	;;
 	
