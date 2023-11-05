@@ -20,7 +20,7 @@ count=0
 until [ $choice -eq 9 ]
 do
 	#case-choice1) get input from user
-	read -p "Enter your choice: [1-9]:" choice
+	read -p "Enter your choice: [1-9] " choice
 
 	case $choice in 
 	1) 
@@ -38,7 +38,7 @@ do
 	
 	3)
 	read -p "Please enter the 'movie id' (1~1682):" movieId
-	awk -v movieId="$movieId" -F ' ' '$2 == movieId {sum += $3; count++} END {print "average rating of %d %.6f", movieId, sum/count}' u.data
+	awk -v movieId="$movieId" -F ' ' '$2 == movieId {sum += $3; count++} END {printf"average rating of %d: %.5f\n", movieId, sum/count}' u.data
 	;;
 
 	4)
@@ -85,7 +85,6 @@ do
 	read -p "Do you want to get the average 'rating' of movies rated by users with 'age' between 20 and 29 and 'occupation as 'programmer'? (y/n):" reply
 	if [ "$reply" = "y" ]; then
     	awk -F '|' '$4 == "programmer" && $2 >= 20 && $2 <= 29 {print $1}' u.user > user_ids.txt
-	cat user_ids.txt
 
     	while IFS= read -r userId; do
         awk -F ' ' -v id="$userId" '$1 == id {sum+=$3; count++} END {if (count > 0) print id, sum/count}' u.data
@@ -97,11 +96,8 @@ do
 	;;
 	
 	9)
-	echo "bye!"
+	echo "Bye!"
 	;;
 	
 	esac
 done
-
-
-
